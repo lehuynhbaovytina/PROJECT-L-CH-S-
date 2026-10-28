@@ -1,0 +1,317 @@
+/* ============ 1. DESIGN TOKENS (đổi màu / font ở đây) ============ */
+:root{
+  --navy:#10213F; --navy-2:#1b3a63; --ivory:#F8F4EA; --aqua:#8DE4E8; --sky:#B7E8F5; --bronze:#8f6418;
+  --glass:rgba(255,255,255,.55); --glass-line:rgba(255,255,255,.8);
+  --serif:'Cormorant Garamond',Georgia,serif; --sans:'Be Vietnam Pro',system-ui,sans-serif;
+  --ease:cubic-bezier(.22,.7,.2,1);
+  --motion:1; /* 0 = tắt chuyển động; 1 = mặc định */
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{font-family:var(--sans);color:var(--navy);line-height:1.7;overflow-x:hidden;
+  background:linear-gradient(180deg,var(--sky) 0%,var(--ivory) 30%,#e6f6f8 65%,var(--ivory) 100%)}
+img{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--navy);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-999px;top:0;background:var(--navy);color:#fff;padding:.6rem 1rem;z-index:99}
+.skip:focus{left:0}
+
+/* ============ 2. GLASS + PLACEHOLDER ============ */
+.glass{background:linear-gradient(145deg,rgba(255,255,255,.75),rgba(255,255,255,.4));
+  border:1px solid var(--glass-line);border-radius:22px;
+  box-shadow:0 10px 30px rgba(16,33,63,.12),inset 0 1px 0 #fff;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.ph{position:relative;overflow:hidden;background:linear-gradient(135deg,#cfeff6,#8DE4E8 55%,#9ec5e8);isolation:isolate}
+.ph::before{content:attr(data-label);position:absolute;inset:0;display:grid;place-items:center;
+  font:600 .75rem var(--sans);letter-spacing:.2em;color:rgba(16,33,63,.55);text-align:center;padding:1rem}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.ph.is-missing img{display:none}
+.ph:not(.is-missing)::before{display:none}
+figure.ph:hover img{transform:scale(1.05)}
+figcaption{position:absolute;left:0;right:0;bottom:0;padding:1.5rem 1rem .7rem;font-size:.78rem;color:#fff;
+  background:linear-gradient(transparent,rgba(16,33,63,.75));z-index:2}
+.ph.is-missing figcaption{color:var(--navy);background:none}
+
+/* ============ 3. NAV ============ */
+.progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:60}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--aqua),var(--navy))}
+.nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:50;width:min(1100px,94vw);
+  display:flex;align-items:center;justify-content:space-between;padding:.55rem 1.3rem;border-radius:999px}
+.brand{font:600 1.25rem var(--serif);text-decoration:none}
+.nav nav{display:flex;gap:1.4rem}
+.nav nav a{font-size:.82rem;text-decoration:none;padding:.3rem 0;border-bottom:2px solid transparent;transition:border-color .3s,color .3s}
+.nav nav a:hover{border-color:var(--aqua)}
+.nav nav a.active{border-color:var(--navy);font-weight:600}
+.nav-toggle{display:none;background:none;border:0;font:500 .85rem var(--sans);color:var(--navy);cursor:pointer;padding:.4rem .6rem}
+
+/* ============ 4. TYPE ============ */
+.tag,.meta{font:500 .78rem var(--sans);letter-spacing:.18em;text-transform:uppercase}
+.big{font:600 clamp(3rem,10vw,8.5rem)/.92 var(--serif);letter-spacing:-.02em}
+.deck{margin-top:1.2rem;color:var(--navy-2);max-width:46ch}
+.serif{font:400 clamp(1.25rem,2.2vw,1.7rem)/1.65 var(--serif);max-width:52ch}
+small{font-size:.78rem;color:var(--bronze)}
+.btn{font:600 .85rem var(--sans);letter-spacing:.08em;text-transform:uppercase;cursor:pointer;color:#fff;border:1px solid rgba(255,255,255,.7);
+  padding:.9rem 2rem;border-radius:999px;background:linear-gradient(180deg,#3a6ea5,var(--navy));
+  box-shadow:0 6px 18px rgba(16,33,63,.3),inset 0 1px 0 rgba(255,255,255,.5);transition:transform .3s var(--ease),box-shadow .3s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(16,33,63,.35),inset 0 1px 0 rgba(255,255,255,.6)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn.small{padding:.55rem 1.1rem;font-size:.75rem}
+.btn.ghost{background:var(--glass);color:var(--navy);border-color:var(--navy)}
+.btn:disabled{opacity:.4;cursor:default;transform:none}
+
+/* ============ 5. HERO ============ */
+.hero{position:relative;min-height:100svh;display:grid;align-items:center;padding:7rem 6vw 5rem;overflow:hidden;
+  background:radial-gradient(ellipse at 20% 10%,#fff 0,transparent 45%),linear-gradient(160deg,var(--sky),var(--aqua) 55%,#6fb3e0)}
+.hero-bg{position:absolute;inset:0;opacity:.55;z-index:0}
+.hero-bg::before{opacity:.0}
+.hero-bg img{transform:translate(var(--px,0),var(--py,0)) scale(1.08);transition:none}
+.orb{position:absolute;border-radius:50%;z-index:1;pointer-events:none;
+  background:radial-gradient(circle at 30% 25%,#fff,rgba(255,255,255,.25) 40%,rgba(141,228,232,.25) 70%);
+  border:1px solid rgba(255,255,255,.7);transform:translate(var(--ox,0),var(--oy,0))}
+.o1{width:min(38vw,420px);aspect-ratio:1;right:6%;top:18%}
+.o2{width:min(14vw,150px);aspect-ratio:1;right:34%;bottom:12%}
+.hero-inner{position:relative;z-index:2}
+.hero h1{font:600 clamp(4rem,17vw,15rem)/.82 var(--serif);letter-spacing:-.03em;margin:1rem 0;color:var(--navy);text-shadow:0 2px 0 rgba(255,255,255,.6)}
+.hero h1 span{display:block}
+.hero h1 span:last-child{padding-left:.5em;font-style:italic;font-weight:400}
+.sub{font:italic 400 clamp(1.4rem,3vw,2.2rem) var(--serif);color:var(--navy-2)}
+.lead{max-width:44ch;margin-top:2rem;padding:1.1rem 1.4rem;font-size:.95rem}
+.hero h1 span,.sub,.tag,.hero .lead{animation:rise 1.1s var(--ease) both}
+.hero h1 span:last-child{animation-delay:.15s}.sub{animation-delay:.3s}.hero .lead{animation-delay:.45s}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}}
+.scroll-cue{position:absolute;left:50%;bottom:1.5rem;transform:translateX(-50%);z-index:2;text-decoration:none;font-size:.75rem;letter-spacing:.14em;text-align:center}
+.scroll-cue span{display:block;width:1px;height:42px;margin:0 auto .5rem;background:linear-gradient(var(--navy),transparent);animation:cue 2.2s ease-in-out infinite}
+@keyframes cue{50%{transform:scaleY(.5);transform-origin:top}}
+
+/* ============ 6. SECTIONS ============ */
+.sec{padding:9rem 6vw 5rem;position:relative}
+.history .two{display:grid;grid-template-columns:1.2fr .8fr;gap:2.5rem;margin-top:3.5rem;align-items:start}
+.history .note{padding:1.8rem}.note h3{font:600 1.6rem var(--serif);margin-bottom:.6rem}
+.history .tall{grid-column:2;grid-row:1/3;aspect-ratio:3/4;border-radius:240px 240px 24px 24px}
+.history .serif{grid-column:1}
+.history .note{grid-column:1;max-width:460px;margin-left:10%}
+
+/* book */
+.book-sec{background:linear-gradient(180deg,transparent,rgba(16,33,63,.06))}
+.book-wrap{position:relative;margin:3rem auto 0;max-width:1060px}
+.cover-art{width:min(80vw,340px);aspect-ratio:3/4.2;border-radius:6px 16px 16px 6px;display:grid;place-content:center;text-align:center;color:var(--ivory);padding:2rem;
+  background:linear-gradient(100deg,#0a1630 0,#10213F 6%,#1b3a63 60%,#10213F);border-left:10px solid #0a1630;
+  box-shadow:18px 22px 40px rgba(16,33,63,.35),inset 0 0 0 1px rgba(255,255,255,.15)}
+.cover-art h3{font:600 clamp(2.4rem,6vw,3.4rem)/.95 var(--serif);margin:1.2rem 0}
+.cover-art p{font:italic 1.15rem var(--serif);color:var(--aqua)}
+.cover-line{width:60px;height:1px;background:#d4a64a;margin:0 auto}
+#pageNum{font:600 .85rem var(--sans);min-width:70px;text-align:center}
+.book-fail{padding:1.2rem;border:1px dashed var(--navy);border-radius:12px;margin-top:1.5rem;text-align:center}
+.flip{margin:0 auto}
+
+/* book pages */
+.page{background:var(--ivory);color:var(--navy);overflow:hidden}
+.page-in{height:100%;padding:8% 9%;display:flex;flex-direction:column;gap:.7rem;font-size:clamp(.7rem,1.25vw,.9rem);line-height:1.6;
+  background:linear-gradient(90deg,rgba(16,33,63,.09),transparent 8%)}
+.page.right .page-in{background:linear-gradient(270deg,rgba(16,33,63,.09),transparent 8%)}
+.page h4{font:600 clamp(1.5rem,3.4vw,2.4rem)/1 var(--serif)}
+.page .ch{font:italic 400 clamp(4rem,10vw,7rem)/.8 var(--serif);color:var(--bronze);opacity:.85}
+.page .ph{flex:1;min-height:90px;border-radius:6px}
+.page .cap{font-size:.72em;color:var(--bronze)}
+.page .num{margin-top:auto;font-size:.7em;opacity:.6;text-align:center}
+.page.cover{background:linear-gradient(100deg,#0a1630,#10213F 8%,#1b3a63 70%,#10213F);color:var(--ivory)}
+.page.cover .page-in{background:none;justify-content:center;text-align:center;align-items:center;border:1px solid rgba(212,166,74,.5);margin:6%;height:88%;padding:8%}
+.page.cover h4{font-size:clamp(2rem,5vw,3.6rem)}
+.page.cover em{font:italic 1.1em var(--serif);color:var(--aqua)}
+.page ol{padding-left:1.2em}
+
+/* culture */
+.culture{background:linear-gradient(180deg,transparent,rgba(183,232,245,.5))}
+.collage{display:grid;grid-template-columns:repeat(12,1fr);gap:1.5rem;margin-top:4rem;align-items:center}
+.collage .main{grid-column:1/8;aspect-ratio:16/11;border-radius:28px 160px 28px 28px}
+.collage .card{grid-column:7/12;grid-row:1;align-self:end;transform:translateY(40px);padding:1.8rem;z-index:2}
+.collage .small{grid-column:8/13;grid-row:2;aspect-ratio:4/3;border-radius:24px;margin-top:3rem}
+.card h3{font:600 1.7rem/1.1 var(--serif);margin-bottom:.6rem}
+
+/* tech */
+.tech{background:linear-gradient(180deg,rgba(183,232,245,.5),#d4eefa 60%,var(--ivory))}
+.versus{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-top:4rem;align-items:center}
+.versus .ph{aspect-ratio:3/4;border-radius:200px 200px 20px 20px}
+.versus .ph:first-child{filter:sepia(.5) saturate(.7)}
+.versus .card{padding:1.8rem}
+
+/* closing */
+.closing{position:relative;min-height:90vh;display:grid;align-items:center;padding:7rem 6vw;color:var(--ivory);overflow:hidden}
+.closing-bg{position:absolute;inset:0;background:linear-gradient(180deg,var(--ivory),#6fb3e0 25%,var(--navy))}
+.closing-bg::before{color:rgba(255,255,255,.4)}
+.closing-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,var(--ivory),transparent 25%,rgba(16,33,63,.7))}
+.closing-inner{position:relative;z-index:2;max-width:980px}
+.statement{font:400 clamp(2rem,5.5vw,4.6rem)/1.08 var(--serif)}
+.closing .lead{color:var(--navy);margin-top:2rem}
+.foot{background:var(--navy);color:rgba(248,244,234,.8);text-align:center;padding:2.5rem 1rem;font-size:.82rem}
+.foot p:first-child{font:600 1.3rem var(--serif);color:var(--ivory)}
+
+/* ============ 7. REVEAL ============ */
+.reveal{opacity:0;transform:translateY(calc(34px*var(--motion)));transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.collage .card.reveal.in{transform:translateY(40px)}
+
+/* ============ 8. RESPONSIVE ============ */
+@media(max-width:900px){
+  .nav-toggle{display:block}
+  .nav nav{display:none;position:absolute;top:110%;left:0;right:0;flex-direction:column;gap:.3rem;padding:1rem 1.4rem;border-radius:22px;
+    background:rgba(248,244,234,.97);box-shadow:0 12px 30px rgba(16,33,63,.2)}
+  .nav nav.open{display:flex}
+  .nav{border-radius:28px}
+  .sec{padding:7rem 6vw 3.5rem}
+  .history .two,.versus{grid-template-columns:1fr}
+  .history .tall,.history .serif,.history .note{grid-column:1;grid-row:auto;margin-left:0;max-width:none}
+  .history .tall{aspect-ratio:4/5}
+  .collage{display:flex;flex-direction:column}
+  .collage .card{transform:none!important}
+  .collage .small{margin-top:0}
+  .versus .ph{aspect-ratio:4/3;border-radius:20px}
+  .o1{opacity:.5}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+  .reveal{opacity:1;transform:none}
+}
+
+/* =====================================================
+   9. HỆ THỐNG CHUYỂN ĐỘNG (motion tokens + hiệu ứng nâng cao)
+   ===================================================== */
+:root{
+  --t-fast:.18s;            /* phản hồi trực tiếp (nhấn nút) */
+  --t-hover:.45s;           /* hover tiêu chuẩn */
+  --ease-io:cubic-bezier(.65,0,.35,1);
+  --ambient:18s;            /* chuyển động nền, chậm */
+  --stagger:90ms;           /* JS ghi đè từ MOTION.stagger */
+}
+.sec{isolation:isolate;overflow-x:clip}
+.reveal{transition-delay:var(--rd,0ms)}
+
+/* progress */
+.progress i{width:100%;transform-origin:0 50%;transform:scaleX(0)}
+
+/* nav: thanh trượt + hover */
+.nav nav a{transition:color var(--t-hover) var(--ease),border-color var(--t-hover)}
+.nav nav a:hover{color:#2a6aa0}
+.nav nav a.active{border-color:transparent}
+.pill{position:absolute;left:0;bottom:-2px;height:2px;width:var(--w,0);border-radius:2px;pointer-events:none;
+  background:linear-gradient(90deg,var(--aqua),var(--navy));opacity:0;
+  transform:translateX(var(--x,0));transition:transform .55s var(--ease),width .55s var(--ease),opacity .3s}
+@media(min-width:901px){.nav nav{position:relative}}
+@media(max-width:900px){.pill{display:none}.nav nav a.active{border-color:var(--navy)}}
+
+/* ánh sáng trên kính (theo con trỏ, rất nhẹ) */
+.glass:not(.nav){position:relative}
+.glass::after,.cover-art::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;
+  background:radial-gradient(circle at var(--lx,50%) var(--ly,50%),rgba(255,255,255,.5),rgba(141,228,232,.12) 36%,transparent 60%);
+  transition:opacity var(--t-hover) var(--ease)}
+.glass:hover::after{opacity:.75}
+.cover-art{position:relative}
+.cover-art:hover::after{opacity:.5}
+
+/* nút */
+.btn{position:relative;overflow:hidden;transform:translate(var(--bx,0px),var(--by,0px));
+  transition:box-shadow var(--t-hover) var(--ease),background var(--t-hover),scale var(--t-fast) var(--ease)}
+.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.4) 50%,transparent 70%);
+  translate:-130% 0;transition:translate .8s var(--ease);pointer-events:none}
+.btn:hover{transform:translate(var(--bx,0px),calc(var(--by,0px) - 2px))}
+.btn:hover::after{translate:130% 0}
+.btn:active{transform:translate(var(--bx,0px),var(--by,0px));scale:.96}
+.btn:disabled{transform:none;scale:1}.btn:disabled::after{display:none}
+
+/* ảnh: lớp ảnh dịch theo con trỏ + phóng nhẹ + hiện bằng mặt nạ */
+figure.ph img{scale:1.08;translate:var(--ix,0px) var(--iy,0px);transform:none;transition:scale .9s var(--ease)}
+figure.ph:hover img{transform:none;scale:1.12}
+figure.reveal{opacity:1;transform:none;clip-path:inset(0 0 100% 0);transition:clip-path 1.3s var(--ease-io)}
+figure.reveal.in{clip-path:inset(0 0 0 0)}
+figure.reveal:not(.in) img{scale:1.3}
+
+/* tiêu đề: mặt nạ theo dòng */
+.big{transition:color .6s var(--ease)}.big:hover{color:var(--navy-2)}
+.big .ln{display:block;overflow:hidden;padding:.18em 0 .08em;margin:-.18em 0 -.08em}
+.big .ln>span{display:block;transform:translateY(112%);
+  transition:transform 1.2s var(--ease) calc(var(--i)*var(--stagger) + var(--rd,0ms))}
+.big.in .ln>span{transform:none}
+.statement .w{display:inline-block;opacity:0;transform:translateY(.45em);color:inherit;
+  transition:opacity .9s var(--ease) calc(var(--i)*35ms),transform .9s var(--ease) calc(var(--i)*35ms),color .4s}
+.statement.in .w{opacity:1;transform:none}
+.statement.in .w:hover{color:var(--aqua)}
+
+/* chiều sâu / nghiêng (perspective ở khối cha, KHÔNG đặt lên sách) */
+.collage,.versus,.history .two,.cover-closed{perspective:1100px}
+
+/* sách: vào cảnh + hào quang */
+.book-wrap{isolation:isolate}
+.book-wrap::before{content:"";position:absolute;left:50%;top:48%;width:92%;height:86%;translate:-50% -50%;z-index:-1;pointer-events:none;
+  background:radial-gradient(ellipse,rgba(141,228,232,.6),rgba(183,232,245,.2) 45%,transparent 68%);opacity:.45;transition:opacity 1.2s var(--ease)}
+
+/* ambient: quả cầu, vệt sáng, khối sáng */
+.orb{transform:none;animation:float calc(var(--ambient)*.6) ease-in-out infinite alternate}
+.o2{animation-duration:calc(var(--ambient)*.45);animation-delay:-4s}
+@keyframes float{from{transform:translateY(0) scale(1)}to{transform:translateY(-18px) scale(1.03)}}
+.streak{position:absolute;left:-10%;top:32%;width:70%;height:90px;border-radius:50%;z-index:1;pointer-events:none;opacity:.7;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);animation:streak calc(var(--ambient)*.7) ease-in-out infinite alternate}
+@keyframes streak{from{transform:rotate(-18deg) translateX(-6%)}to{transform:rotate(-18deg) translateX(14%)}}
+.blob{position:absolute;width:min(46vw,520px);aspect-ratio:1;border-radius:50%;z-index:-1;pointer-events:none;
+  background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.7),rgba(141,228,232,.32) 45%,transparent 70%);
+  animation:drift var(--ambient) ease-in-out infinite alternate}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(24px,-30px) scale(1.06)}}
+.hero-bg{inset:-3%}
+.hero-bg img{transform:none;scale:1.06}
+.closing-bg img{scale:1.15}
+
+/* con trỏ tuỳ chỉnh (chỉ khi có chuột; con trỏ gốc vẫn giữ) */
+.cursor,.cursor-dot{position:fixed;left:0;top:0;pointer-events:none;z-index:100;opacity:0;will-change:translate;
+  transition:opacity var(--t-hover),scale var(--t-hover) var(--ease),background var(--t-hover)}
+.cursor{width:38px;height:38px;margin:-19px 0 0 -19px;border-radius:50%;border:1px solid rgba(16,33,63,.7);
+  box-shadow:0 0 0 1px rgba(255,255,255,.55);background:rgba(141,228,232,.14)}
+.cursor-dot{width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:var(--navy);box-shadow:0 0 0 1px rgba(255,255,255,.7)}
+body.c-on .cursor,body.c-on .cursor-dot{opacity:1}
+body.c-link .cursor{scale:1.7;background:rgba(141,228,232,.32)}
+body.c-stage .cursor,body.c-stage .cursor-dot,body.c-out .cursor,body.c-out .cursor-dot{opacity:0}
+
+/* giảm chuyển động */
+@media(prefers-reduced-motion:reduce){
+  .big .ln>span,.statement .w{transform:none;opacity:1}
+  figure.reveal{clip-path:none}
+  figure.reveal:not(.in) img{scale:1.08}
+  .reveal-book{transform:none;filter:none}
+  .orb,.streak,.blob{animation:none}
+}
+
+
+/* =====================================================
+   10. CUỐN SÁCH — bìa luôn sẵn sàng, chạm để mở
+   Trạng thái: data-state = closed | opening | open | closing  (do script.js điều khiển)
+   Khung sách có kích thước cố định ở mọi trạng thái → không bị nhảy layout.
+   ===================================================== */
+.book-wrap{--bh:clamp(420px,72vh,720px);--pw:calc(var(--bh)*.719);--ease-open:cubic-bezier(.65,.05,.25,1)}
+.book-area{position:relative;height:var(--bh)}
+.cover-closed,.book-stage{position:absolute;inset:0}
+.cover-closed{display:grid;place-items:center;perspective:1400px;pointer-events:none}
+
+/* bìa */
+.cover-art{width:min(100%,var(--pw));aspect-ratio:460/640;height:auto;cursor:pointer;user-select:none;-webkit-user-select:none;
+  touch-action:manipulation;-webkit-tap-highlight-color:transparent;transform-origin:0 50%;pointer-events:none;
+  box-shadow:calc(14px + var(--sx,0)*1px) calc(20px + var(--sy,0)*1px) 36px rgba(16,33,63,.34),inset 0 0 0 1px rgba(255,255,255,.15);
+  transition:transform .95s var(--ease-open),box-shadow .95s var(--ease-open),opacity .6s ease .1s,scale .2s var(--ease)}
+.book-wrap[data-state=closed] .cover-art{pointer-events:auto;will-change:rotate}
+.cover-art:active{scale:.985}
+.book-wrap[data-state=opening] .cover-art,.book-wrap[data-state=open] .cover-art{transform:rotateY(-78deg);opacity:0}
+
+/* sách (StPageFlip): chỉ đổi opacity, KHÔNG transform lên khung sách */
+.book-stage{opacity:0;pointer-events:none;transition:opacity .5s var(--ease)}
+.book-wrap[data-state=opening] .book-stage,.book-wrap[data-state=open] .book-stage{opacity:1;transition:opacity .75s var(--ease) .3s}
+.book-wrap[data-state=open] .book-stage{pointer-events:auto}
+
+/* điều khiển + gợi ý chiếm cùng một hàng, luôn giữ chỗ */
+.book-ctrl{display:flex;justify-content:center;align-items:center;gap:1rem;flex-wrap:wrap;margin-top:1.4rem;opacity:0;pointer-events:none;transition:opacity .4s var(--ease)}
+.book-wrap[data-state=open] .book-ctrl{opacity:1;pointer-events:auto;transition-delay:.1s}
+.cover-hint{position:absolute;left:0;right:0;bottom:12px;text-align:center;pointer-events:none;
+  font:500 .78rem var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--navy-2);transition:opacity .4s var(--ease)}
+.book-wrap:not([data-state=closed]) .cover-hint{opacity:0}
+.book-wrap[data-state=opening]::before,.book-wrap[data-state=open]::before{opacity:1}
+
+/* hiện khi cuộn tới: fade + trượt nhẹ + blur rất nhẹ (blur tắt hẳn khi đã hiện) */
+.reveal-book{transform:translateY(48px) scale(.975);filter:blur(6px);
+  transition:opacity 1.3s var(--ease),transform 1.3s var(--ease),filter 1.1s var(--ease)}
+.reveal-book.in{transform:none;filter:none}

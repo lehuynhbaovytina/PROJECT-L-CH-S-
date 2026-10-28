@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ký ức Sài Gòn — Hòn Ngọc Viễn Đông</title>
+<meta name="description" content="Triển lãm số về 50 năm phát triển của Sài Gòn – TP. Hồ Chí Minh.">
+<!-- Cần internet: Google Fonts + StPageFlip (jsDelivr). Mọi thứ khác chạy offline. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Bỏ qua điều hướng</a>
+<div class="progress" aria-hidden="true"><i id="progress"></i></div>
+
+<header class="nav glass">
+  <a class="brand" href="#hero">Ký ức Sài Gòn</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Mở menu" aria-expanded="false" aria-controls="menu">Menu</button>
+  <nav id="menu" aria-label="Điều hướng chính">
+    <a href="#su-hoc">Vai trò sử học</a>
+    <a href="#lich-su">Lịch sử hình thành</a>
+    <a href="#van-hoa">Văn hóa – xã hội</a>
+    <a href="#khoa-hoc">Khoa học – kỹ thuật</a>
+    <a href="#ket">Suy ngẫm</a>
+  </nav>
+</header>
+
+<main id="main">
+
+<!-- SECTION 01 · HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg ph" data-label="ẢNH NỀN HERO" data-depth="-12"><img data-key="hero" data-parallax=".08" alt="[Mô tả ảnh nền: toàn cảnh Sài Gòn]"></div>
+  <div class="streak" data-depth="16" aria-hidden="true"></div>
+  <div class="orb o1" data-depth="30" aria-hidden="true"></div>
+  <div class="orb o2" data-depth="-20" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <p class="tag">Digital Heritage Archive</p>
+    <h1><span>Ký ức</span><span>Sài Gòn</span></h1>
+    <p class="sub">Hòn Ngọc Viễn Đông</p>
+    <p class="lead glass">[ĐIỀN NỘI DUNG TẠI ĐÂY — đoạn giới thiệu ngắn về dự án 50 năm phát triển của Sài Gòn – TP. Hồ Chí Minh]</p>
+  </div>
+  <a class="scroll-cue" href="#su-hoc" aria-label="Cuộn xuống"><span></span>Tiếp tục khám phá</a>
+</section>
+
+<!-- SECTION 02 · VAI TRÒ CỦA SỬ HỌC -->
+<section class="sec history" id="su-hoc">
+  <p class="meta reveal">Hồ sơ 02 · Phương pháp</p>
+  <h2 class="big reveal">Vai trò<br>của sử học</h2>
+  <p class="deck reveal">[PHỤ ĐỀ — ĐIỀN NỘI DUNG TẠI ĐÂY]</p>
+  <div class="two">
+    <p class="serif reveal">[ĐIỀN NỘI DUNG TẠI ĐÂY — giải thích vai trò của sử học: vì sao chúng ta cần nhìn lại quá khứ của thành phố.]</p>
+    <aside class="glass note reveal">
+      <h3>Nhận định then chốt</h3>
+      <p>[ĐIỀN NỘI DUNG TẠI ĐÂY — bằng chứng lịch sử / suy ngẫm / nhận định]</p>
+      <small>[NGUỒN TƯ LIỆU]</small>
+    </aside>
+    <figure class="ph tall reveal" data-label="ẢNH TƯ LIỆU" ><img data-key="history" alt="[Mô tả ảnh tư liệu]" loading="lazy"><figcaption>[THÊM ẢNH TƯ LIỆU TẠI ĐÂY] — [NGUỒN TƯ LIỆU]</figcaption></figure>
+  </div>
+</section>
+
+<!-- SECTION 03 · SÁCH -->
+<section class="sec book-sec" id="lich-su">
+  <p class="meta reveal">Hồ sơ 03 · Ấn phẩm tương tác</p>
+  <h2 class="big reveal">Lịch sử<br>hình thành</h2>
+  <p class="deck reveal">[PHỤ ĐỀ — ĐIỀN NỘI DUNG TẠI ĐÂY]</p>
+
+  <div class="book-wrap" id="bookWrap" data-state="closed">
+    <div class="book-area">
+      <div class="cover-closed" id="coverClosed">
+        <!-- Bìa sách: click / chạm / Enter / Space để mở -->
+        <div class="cover-art" id="coverArt" role="button" tabindex="0" aria-label="Mở sách: Lịch sử hình thành">
+          <span class="cover-line"></span>
+          <h3>Ký ức<br>Sài Gòn</h3>
+          <p>Lịch sử hình thành</p>
+          <span class="cover-line"></span>
+        </div>
+      </div>
+      <div class="book-stage" id="bookStage" aria-hidden="true" inert>
+        <div class="flip" id="flipbook"></div>
+      </div>
+    </div>
+    <div class="book-ctrl" id="bookCtrl" inert>
+      <button class="btn small" id="prevPage" type="button" aria-label="Trang trước">‹ Trước</button>
+      <span id="pageNum" aria-live="polite">1 / 1</span>
+      <button class="btn small" id="nextPage" type="button" aria-label="Trang tiếp theo">Trang tiếp theo ›</button>
+      <button class="btn small ghost" id="closeBook" type="button">Đóng sách</button>
+    </div>
+    <p class="cover-hint" id="coverHint" aria-hidden="true">Chạm vào bìa để mở sách</p>
+    <p class="book-fail" id="bookFail" hidden>Không tải được thư viện lật trang (StPageFlip). Hãy kiểm tra kết nối internet rồi tải lại trang.</p>
+  </div>
+</section>
+
+<!-- SECTION 04 · VĂN HÓA – XÃ HỘI -->
+<section class="sec culture" id="van-hoa">
+  <h2 class="big reveal">Đời sống<br>văn hóa — xã hội</h2>
+  <p class="deck reveal">[PHỤ ĐỀ — ĐIỀN NỘI DUNG TẠI ĐÂY]</p>
+  <div class="collage">
+    <figure class="ph main reveal" data-label="ẢNH CHÍNH" data-parallax="0.05"><img data-key="culture" alt="[Mô tả ảnh văn hóa – xã hội]" loading="lazy"><figcaption>[NGUỒN TƯ LIỆU]</figcaption></figure>
+    <div class="glass card reveal">
+      <h3>[CHỦ ĐỀ VĂN HÓA / LỊCH SỬ]</h3>
+      <p>[ĐIỀN NỘI DUNG TẠI ĐÂY — mô tả]</p>
+    </div>
+    <figure class="ph small reveal" data-label="TƯ LIỆU 2"><img data-key="culture2" alt="[Mô tả tư liệu bổ sung]" loading="lazy"><figcaption>[TƯ LIỆU BỔ SUNG]</figcaption></figure>
+  </div>
+</section>
+
+<!-- SECTION 05 · KHOA HỌC – KỸ THUẬT -->
+<section class="sec tech" id="khoa-hoc">
+  <h2 class="big reveal">Khoa học<br>— kỹ thuật</h2>
+  <p class="deck reveal">[PHỤ ĐỀ — ĐIỀN NỘI DUNG TẠI ĐÂY]</p>
+  <div class="versus">
+    <figure class="ph reveal" data-label="XƯA"><img data-key="techPast" alt="[Mô tả ảnh kỹ thuật thời trước]" loading="lazy"><figcaption>Trước · [NGUỒN TƯ LIỆU]</figcaption></figure>
+    <div class="glass card reveal">
+      <h3>[CHỦ ĐỀ KHOA HỌC – KỸ THUẬT]</h3>
+      <p>[ĐIỀN NỘI DUNG TẠI ĐÂY — mô tả]</p>
+      <small>[BẰNG CHỨNG LỊCH SỬ]</small>
+    </div>
+    <figure class="ph reveal" data-label="NAY"><img data-key="technology" alt="[Mô tả ảnh công nghệ hiện nay]" loading="lazy"><figcaption>Nay · [NGUỒN TƯ LIỆU]</figcaption></figure>
+  </div>
+</section>
+
+<!-- SECTION 06 · KẾT -->
+<section class="closing" id="ket">
+  <div class="ph closing-bg" data-label="ẢNH TOÀN CẢNH"><img data-key="closing" data-parallax=".06" alt="[Mô tả ảnh kết]" loading="lazy"></div>
+  <div class="closing-inner">
+    <p class="statement reveal">[ĐIỀN NỘI DUNG TẠI ĐÂY — suy ngẫm về lịch sử và tương lai của thành phố]</p>
+    <p class="glass lead reveal">[ĐIỀN NỘI DUNG TẠI ĐÂY — đoạn phụ]</p>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <p>Ký ức Sài Gòn — Hòn Ngọc Viễn Đông</p>
+  <p>[TÊN NHÓM / LỚP / TRƯỜNG] · [NGUỒN TƯ LIỆU CHUNG]</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
