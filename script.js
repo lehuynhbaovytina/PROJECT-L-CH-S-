@@ -137,7 +137,7 @@ function initBook() {
     minWidth: 260, maxWidth: 560, minHeight: 360, maxHeight: 780,
     showCover: true,
     startPage: FIRST_PAGE,                       // mở ra là thấy Mục lục
-    usePortrait: true,                           // 1 trang trên màn hình hẹp
+    usePortrait: false,                           // 1 trang trên màn hình hẹp
     mobileScrollSupport: true,
     maxShadowOpacity: 0.45,
     flippingTime: MOTION.flipTime,
